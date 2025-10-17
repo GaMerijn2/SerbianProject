@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce6bc5e8e8f98f468ce2dc1e25f32b1, type: 3}
+  m_Name: Harvest
+  m_EditorClassIdentifier: 
+  actionType: 2
+  duration: 0.5
+  icon: {fileID: 21300000, guid: f42aed9e1589a2f4d97fc04b6ff5573e, type: 3}
+  fullName: Harvest Ability
+  animationClip: {fileID: 7400000, guid: 010003c459259e74db9bb4843cb39b36, type: 2}
+  animationHash: -117382485
