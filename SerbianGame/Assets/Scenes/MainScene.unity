@@ -1512,7 +1512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1012754111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1595,7 +1595,7 @@ MonoBehaviour:
   targetGO: {fileID: 979552175}
   tweenTargetIsTargetGO: 1
   delay: 0
-  duration: 0.3
+  duration: 0.15
   easeType: 6
   easeCurve:
     serializedVersion: 2
@@ -1635,7 +1635,7 @@ MonoBehaviour:
   animationType: 2
   targetType: 11
   forcedTargetType: 0
-  autoPlay: 0
+  autoPlay: 1
   useTargetAsV3: 0
   endValueFloat: 0
   endValueV3: {x: 0, y: 0.5, z: 0}
@@ -7817,7 +7817,7 @@ MonoBehaviour:
   hpm: {fileID: 1940399052}
   hpa: {fileID: 1940399062}
   animator: {fileID: 0}
-  DOTweenAnimation: {fileID: 2060341910}
+  DOTweenAnimation: {fileID: 0}
 --- !u!114 &1940399062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7961,7 +7961,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2060341908
 Transform:
   m_ObjectHideFlags: 0
@@ -8023,7 +8023,7 @@ MonoBehaviour:
   targetGO: {fileID: 1410089515}
   tweenTargetIsTargetGO: 0
   delay: 0
-  duration: 0.3
+  duration: 0.15
   easeType: 2
   easeCurve:
     serializedVersion: 2
@@ -8143,7 +8143,7 @@ MonoBehaviour:
   targetGO: {fileID: 1410089515}
   tweenTargetIsTargetGO: 1
   delay: 0
-  duration: 0.3
+  duration: 0.15
   easeType: 2
   easeCurve:
     serializedVersion: 2

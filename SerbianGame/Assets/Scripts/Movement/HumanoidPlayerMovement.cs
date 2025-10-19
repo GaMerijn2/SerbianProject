@@ -17,7 +17,7 @@ public class HumanoidPlayerMovement : MonoBehaviour, IHumanoidMoveable
 
     public float MappedWalkSpeed
     {
-        get => Map(0, 6, 0, 1, currentSpeed);
+        get => Map(0, walkSpeed * sprintMultiplier, 0, 1, currentSpeed);
     }
 
     private Vector3 velocity;
@@ -32,6 +32,7 @@ public class HumanoidPlayerMovement : MonoBehaviour, IHumanoidMoveable
     private void Update()
     {
         velocity.y += Physics.gravity.y * Time.deltaTime;
+        Debug.Log(currentSpeed);
     }
 
     public void Move(Vector2 input)

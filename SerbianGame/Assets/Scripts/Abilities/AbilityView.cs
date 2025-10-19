@@ -14,8 +14,8 @@ public class AbilityView : MonoBehaviour
         inputs = new InputControl[]
         {
             Mouse.current.leftButton,
-            Mouse.current.rightButton,
-            Keyboard.current.eKey,
+            //Mouse.current.rightButton,
+            //Keyboard.current.eKey,
         };
 
         for (int i = 0; i < buttons.Length; i++)

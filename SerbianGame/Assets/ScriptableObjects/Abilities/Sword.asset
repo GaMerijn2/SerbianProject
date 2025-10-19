@@ -18,4 +18,4 @@ MonoBehaviour:
   fullName: Sword Attack / Meelee Attack
   animationClip: {fileID: 0}
   animationHash: 1080829965
-  tweenId: AttackTween
+  tweenId: JumpTween
