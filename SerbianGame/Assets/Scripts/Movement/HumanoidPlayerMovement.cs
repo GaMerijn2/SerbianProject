@@ -62,8 +62,9 @@ public class HumanoidPlayerMovement : MonoBehaviour, IHumanoidMoveable
 
         Vector3 finalMove = move + Vector3.up * velocity.y;
         controller.Move(finalMove * Time.deltaTime);
+        
+        Debug.Log("Moving with velocity: " + finalMove);
     }
-
 
     public void StopMoving()
     {
@@ -72,6 +73,7 @@ public class HumanoidPlayerMovement : MonoBehaviour, IHumanoidMoveable
 
     public void SetMoveSpeed(float speed)
     {
+        Debug.Log("Setting move speed to: " + speed);
         currentSpeed = speed;
     }
 
@@ -135,5 +137,4 @@ public class HumanoidPlayerMovement : MonoBehaviour, IHumanoidMoveable
     {
         return (value - inMin) / (inMax - inMin) * (outMax - outMin) + outMin;
     }
-
 }

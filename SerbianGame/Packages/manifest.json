@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "com.singularitygroup.hotreload": "git+https://gitlab.hotreload.net/root/hot-reload-releases.git#1.13.11",
+    "com.unity.2d.enhancers": "1.0.0",
+    "com.unity.2d.sprite": "1.0.0",
     "com.unity.ai.assistant": "1.0.0-pre.12",
     "com.unity.ai.generators": "1.0.0-pre.20",
     "com.unity.ai.inference": "2.3.0",
