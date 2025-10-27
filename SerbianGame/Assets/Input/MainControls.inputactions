@@ -261,6 +261,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "UI",
+            "id": "4485412c-b8f8-45cf-9120-a97555dd5820",
+            "actions": [
+                {
+                    "name": "Point",
+                    "type": "Button",
+                    "id": "30d23609-6784-4ed6-acb3-8fe5f87fdc40",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "043398a5-aeb7-4199-93b8-3fbce3667808",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Point",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

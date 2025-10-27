@@ -18,7 +18,10 @@ public class PlayerInputController : MonoBehaviour
     {
         moveable = GetComponent<IHumanoidMoveable>();
         inputActions = new MainControls();
+        inputActions.Disable();
+        inputActions.Player.Enable(); // ensure just this map
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void OnEnable()
@@ -43,19 +46,40 @@ public class PlayerInputController : MonoBehaviour
         inputActions.Player.Jump.performed -= OnJump;
     }
 
+    // PlayerInputController fields
+    private bool jumpHeldPrev = false;
+
     private void Update()
     {
+        // existing cursor lock logic...
         if (!isCursorLocked)
         {
-            moveInput = Vector2.zero; // Prevent movement when cursor is unlocked
+            moveInput = Vector2.zero;
             moveable.Move(moveInput);
-
+            jumpHeldPrev = false; // reset while unlocked
             return;
         }
 
+        // Move already handled elsewhere if you like:
         moveInput = inputActions.Player.Move.ReadValue<Vector2>();
         moveable.Move(moveInput);
         moveable.RotateTowards(moveInput);
+
+        // PRESS/RELEASE EDGE DETECTION (never misses)
+        bool jumpHeldNow = inputActions.Player.Jump.IsPressed();
+
+        if (jumpHeldNow && !jumpHeldPrev)
+        {
+            // press edge
+            moveable.Jump();
+        }
+        else if (!jumpHeldNow && jumpHeldPrev)
+        {
+            // release edge
+            if (moveable is FrogMovement frog) frog.ReleaseJump();
+        }
+
+        jumpHeldPrev = jumpHeldNow;
     }
 
     private void OnJump(InputAction.CallbackContext context)
