@@ -1407,8 +1407,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: 0, y: 100}
+  m_AnchoredPosition: {x: 0, y: -37.5}
+  m_SizeDelta: {x: 0, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &593154769
 GameObject:
@@ -9083,6 +9083,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 851c6d47d0d9f7a428d61a704fb2cb6a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7860a8d24c053d942afdd3e7aca27947, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 851c6d47d0d9f7a428d61a704fb2cb6a, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7860a8d24c053d942afdd3e7aca27947, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 851c6d47d0d9f7a428d61a704fb2cb6a, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7860a8d24c053d942afdd3e7aca27947, type: 2}
     - target: {fileID: 919132149155446097, guid: 851c6d47d0d9f7a428d61a704fb2cb6a, type: 3}
       propertyPath: m_Name
       value: FlyObject
