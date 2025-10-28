@@ -11,8 +11,8 @@ public class FrogMovement : MonoBehaviour, IHumanoidMoveable
     [SerializeField] private float groundedSmoothingTime = 0.05f; // seconds to smooth grounded state
 
     [Header("Hop Tuning")]
+    [SerializeField] public float maxChargeTime { get; private set; } = 0.6f;
     [SerializeField] private float baseHopPower = 7f;
-    [SerializeField] private float maxChargeTime = 0.6f;
     [SerializeField] private AnimationCurve chargeCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
     [SerializeField] private float forwardPower = 6f;
     [SerializeField] private float sprintForwardMultiplier = 1.25f;
@@ -38,13 +38,13 @@ public class FrogMovement : MonoBehaviour, IHumanoidMoveable
 
     [Header("Debug")]
     [SerializeField] private bool debugLogs = false;
+    public float chargeTimer { get; private set; }
 
     private Rigidbody rb;
     private Vector2 moveInput;
     private Vector3 desiredDirWorld;          // computed in Update, used in FixedUpdate
 
     private bool isCharging;
-    private float chargeTimer;
 
     private float lastGroundedTime;
     private float lastJumpPressedTime;
