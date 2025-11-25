@@ -14,6 +14,11 @@ public struct PlayerMagicEvent : IEvent
     public int spellIndex;
 }
 
+public struct OnPortalEvent : IEvent 
+{ 
+    public SceneType type;
+}
+
 public enum ActionType
 {
     None,

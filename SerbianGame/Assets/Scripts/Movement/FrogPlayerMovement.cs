@@ -36,6 +36,9 @@ public class FrogMovement : MonoBehaviour, IHumanoidMoveable
     [Header("Camera")]
     [SerializeField] private Transform cameraTransform;
 
+    [Header("Animations")]
+    [SerializeField] private Animator animator;
+
     [Header("Debug")]
     [SerializeField] private bool debugLogs = false;
     public float chargeTimer { get; private set; }
@@ -78,7 +81,9 @@ public class FrogMovement : MonoBehaviour, IHumanoidMoveable
         // Ground check with smoothing
         Vector3 origin = transform.position + Vector3.up * groundCheckOffset;
         bool groundedNow = Physics.CheckSphere(origin, groundCheckRadius, groundMask, QueryTriggerInteraction.Ignore);
-        if (groundedNow) lastGroundedTime = Time.time;
+
+        if (groundedNow) 
+            lastGroundedTime = Time.time;
 
         if (groundedNow != isGroundedSmoothed)
         {
@@ -90,9 +95,7 @@ public class FrogMovement : MonoBehaviour, IHumanoidMoveable
             }
         }
         else
-        {
             groundedSmoothTimer = 0f;
-        }
 
         isGrounded = groundedNow;
 
@@ -102,7 +105,8 @@ public class FrogMovement : MonoBehaviour, IHumanoidMoveable
         if (isCharging)
         {
             chargeTimer += Time.deltaTime;
-            if (chargeTimer > maxChargeTime) chargeTimer = maxChargeTime;
+            if (chargeTimer > maxChargeTime) 
+                chargeTimer = maxChargeTime;
         }
 
         // Desired direction is computed in Update from latest input
@@ -112,10 +116,13 @@ public class FrogMovement : MonoBehaviour, IHumanoidMoveable
         bool withinCoyote = (Time.time - lastGroundedTime) <= coyoteTime;
         if (releaseBuffered && (isGroundedSmoothed || withinCoyote) && canHop)
         {
-            if (debugLogs) Debug.Log("[Frog] Buffered release consumed -> hop");
+            if (debugLogs)
+                Debug.Log("[Frog] Buffered release consumed -> hop");
             TryExecuteHop();
             releaseBuffered = false;
         }
+
+        SetAnimatorVariables();
     }
 
     private void FixedUpdate()
@@ -133,7 +140,6 @@ public class FrogMovement : MonoBehaviour, IHumanoidMoveable
             rb.AddForce(Vector3.down * groundStickyForce, ForceMode.Acceleration);
         }
         else
-        {
             if (desiredDirWorld.sqrMagnitude > 0.0001f)
             {
                 Vector3 vel = rb.linearVelocity;
@@ -142,7 +148,6 @@ public class FrogMovement : MonoBehaviour, IHumanoidMoveable
                 Vector3 add = Vector3.ClampMagnitude(wish - lateral, airControl * Time.fixedDeltaTime);
                 rb.AddForce(add, ForceMode.VelocityChange);
             }
-        }
 
         // Smooth facing, driven by physics time
         if (desiredDirWorld.sqrMagnitude > 0.0001f)
@@ -171,7 +176,8 @@ public class FrogMovement : MonoBehaviour, IHumanoidMoveable
         {
             isCharging = true;
             chargeTimer = 0f;
-            if (debugLogs) Debug.Log("[Frog] Jump pressed -> start charging");
+            if (debugLogs) 
+                Debug.Log("[Frog] Jump pressed -> start charging");
         }
     }
 
@@ -179,18 +185,27 @@ public class FrogMovement : MonoBehaviour, IHumanoidMoveable
     {
         lastJumpReleasedTime = Time.time;
 
-        bool canHopNow = canHop && (isGroundedSmoothed || (Time.time - lastGroundedTime) <= coyoteTime);
+        bool withinCoyote = (Time.time - lastGroundedTime) <= coyoteTime;
+        bool canHopNow = canHop && (isGroundedSmoothed || withinCoyote);
+
         if (canHopNow)
         {
-            if (debugLogs) Debug.Log("[Frog] Jump released -> hop now");
+            if (debugLogs)
+                Debug.Log("[Frog] Jump released -> hop now");
+
             TryExecuteHop();
+            return;
         }
-        else
-        {
-            releaseBuffered = (Time.time - lastJumpPressedTime) <= jumpBufferTime;
-            if (debugLogs) Debug.Log("[Frog] Jump released in air -> buffer: " + releaseBuffered);
-        }
+
+        isCharging = false;
+        chargeTimer = 0f;
+        releaseBuffered = false;
+
+        if (debugLogs)
+            Debug.Log("[Frog] Jump released mid-air -> cancel charge");
     }
+
+
 
     public void Crouch(bool isCrouching) { isSlowWalking = isCrouching; }
     public void Dash() { }
@@ -200,18 +215,24 @@ public class FrogMovement : MonoBehaviour, IHumanoidMoveable
 
     private void TryExecuteHop()
     {
-        if (!canHop) return;
+        if (!canHop) 
+            return;
 
         bool groundedOrCoyote = isGroundedSmoothed || (Time.time - lastGroundedTime <= coyoteTime);
-        if (!groundedOrCoyote) return;
+        Debug.Log("groundedOrCoyote: "+groundedOrCoyote);
+        if (!groundedOrCoyote) 
+            return;
 
         float t = Mathf.Clamp01(chargeTimer / maxChargeTime);
-        if (isSlowWalking) t *= 0.6f;
+        if (isSlowWalking) 
+            t *= 0.6f;
+
         float eval = chargeCurve.Evaluate(t);
 
         float vPower = baseHopPower * (0.5f + eval);
         float fPower = forwardPower * (0.5f + eval);
-        if (isSprinting) fPower *= sprintForwardMultiplier;
+        if (isSprinting) 
+            fPower *= sprintForwardMultiplier;
 
         Vector3 dir = desiredDirWorld.sqrMagnitude > 0.0001f ? desiredDirWorld : transform.forward;
 
@@ -222,7 +243,8 @@ public class FrogMovement : MonoBehaviour, IHumanoidMoveable
         Vector3 impulse = dir.normalized * fPower + Vector3.up * vPower;
         rb.AddForce(impulse, ForceMode.VelocityChange);
 
-        if (debugLogs) Debug.Log("[Frog] HOP t=" + t.ToString("0.00") + " v=" + vPower.ToString("0.00") + " f=" + fPower.ToString("0.00"));
+        //if (debugLogs) 
+            //Debug.Log("[Frog] HOP t=" + t.ToString("0.00") + " v=" + vPower.ToString("0.00") + " f=" + fPower.ToString("0.00"));
 
         canHop = false;
         Invoke(nameof(EnableHop), hopCooldown);
@@ -234,9 +256,17 @@ public class FrogMovement : MonoBehaviour, IHumanoidMoveable
 
     private void EnableHop() { canHop = true; }
 
+    private void SetAnimatorVariables()
+    {
+        animator.SetFloat("walkSpeed", walkSpeedForUI);
+        animator.SetBool("isJumping", !isGrounded);
+    }
+        
     private Vector3 DesiredWorldMoveDirection()
     {
-        if (moveInput == Vector2.zero) return Vector3.zero;
+        if (moveInput == Vector2.zero) 
+            return Vector3.zero;
+
         return CameraAligned(moveInput).normalized;
     }
 

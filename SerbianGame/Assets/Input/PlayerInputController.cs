@@ -65,6 +65,17 @@ public class PlayerInputController : MonoBehaviour
         moveable.Move(moveInput);
         moveable.RotateTowards(moveInput);
 
+        float speed = moveInput.magnitude;
+
+        if (inputActions.Player.Sprint.IsPressed())
+            speed *= 1.25f;
+
+        if (inputActions.Player.SlowWalk.IsPressed())
+            speed *= 0.5f;
+
+        moveable.SetMoveSpeed(speed);
+
+
         // PRESS/RELEASE EDGE DETECTION (never misses)
         bool jumpHeldNow = inputActions.Player.Jump.IsPressed();
 
